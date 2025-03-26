@@ -1,0 +1,36 @@
+@namespace("example.events.v1")
+protocol example_events {
+
+    record AccountEvent {
+        string Id;
+        timestamp_ms AccountOpeningTimestamp;
+        string Email;
+        boolean IsActive;
+    }
+
+    record OrderEvent {
+        string Id;
+        string AccountId;
+        timestamp_ms OrderCreatedTimestamp;
+        float Value;
+        string ProductCode;
+    }
+
+    record SubscriptionEvent {
+        string Id;
+        string AccountId;
+        timestamp_ms SubscriptionCreatedTimestamp;
+        float Value;
+        string ProductCode;
+        boolean IsActive;
+    }
+
+    record NotificationEvent {
+        string Id;
+        string AccountId;
+        timestamp_ms Timestamp;
+        string Email;
+        string Content;
+        string NotificationTemplate;
+    }
+}

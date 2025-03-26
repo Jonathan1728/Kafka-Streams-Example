@@ -1,0 +1,46 @@
+spring.cloud:
+  # Spring Cloud Function @Bean Definitions
+  function.definition: generateNotification
+  stream:
+    bindings:
+      # Define Inbound Topics
+      generateNotification-in-0:
+        destination: ${GENERATE_NOTIFICATION_INPUT_TOPIC_0:example.account.v1}
+      generateNotification-in-1:
+        destination: ${GENERATE_NOTIFICATION_INPUT_TOPIC_1:example.order.v1}
+      generateNotification-in-2:
+        destination: ${GENERATE_NOTIFICATION_INPUT_TOPIC_2:example.subscription.v1}
+          
+      # Define outbound topic
+      generateNotification-out-0:
+        destination: ${GENERATE_NOTIFICATION_OUTPUT_TOPIC_0:example.notification.v1}
+
+    kafka.streams:
+      bindings:
+        generateNotification-in-0.consumer:
+          applicationId: ${GENERATE_NOTIFICATION_INPUT_TOPIC_0_APP_ID:example_service_0001}
+      binder:
+        brokers: ${KAFKA_BROKER:localhost:9092}
+        configuration:
+          # Internal Topics
+          replication.factor: ${INTERNAL_TOPIC_REPLICATION_FACTOR:3}
+          # For Broker
+          security.protocol: ${SECURITY_PROTOCOL:SASL_SSL}
+          ssl.protocol: ${SSL_PROTOCOL:TLSv1.2}
+          sasl.mechanism: ${SASL_MECHANISM:PLAIN}
+          ssl.endpoint.identification.algorithm: ${SSL_ENDPOINT_ID_ALGORITHM:HTTPS}
+          ssl.enabled.protocols: ${SSL_ENABLED_PROTOCOLS:TLSv1.2}
+
+          schema.registry.url: ${SCHEMA_REGISTRY_URL:}
+          default.key.serde: ${DEFAULT_KEY_SERDE:org.apache.kafka.common.serialization.Serdes$StringSerde}
+          default.value.serde: ${DEFAULT_VALUE_SERDE:io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde}
+
+# Other Security Properties
+kafka.security.config.file.path: ${KAFKA_JAAS_DM_CLUSTER:kafka_jaas.conf}
+schema.registry:
+  trust.store:
+    location: ${SCHEMA_REGISTRY_SSL_TRUSTSTORE:}
+    password: ${SCHEMA_REGISTRY_SSL_TRUSTSTORE_PASSWORD:}
+  key.store:
+    location: ${SCHEMA_REGISTRY_SSL_KEYSTORE:}
+    password: ${SCHEMA_REGISTRY_SSL_KEYSTORE_PASSWORD:}

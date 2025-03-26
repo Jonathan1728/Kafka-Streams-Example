@@ -1,0 +1,9 @@
+[
+  {"Id": "bbb199d3-06df-4080-b1e5-34c957131520",
+    "AccountId": "aaa199d3-06df-4080-b1e5-34c957131520",
+    "SubscriptionCreatedTimestamp": 1743017819000,
+    "Value": 100.00,
+    "ProductCode": "exampleProduct",
+    "IsActive": true
+  }
+]
